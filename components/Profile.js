@@ -28,8 +28,7 @@ export default function Profile({ navigation, loggedUser }){
     
     const logOut = () => {
         Alert.alert(
-            'Alert Title',
-            'Alert message here...',
+            'Are you sure you want to sign out?',
             [
               {text: 'NO', onPress: () => '', style: 'cancel'},
               {text: 'YES', onPress: () => signOut(auth)},
