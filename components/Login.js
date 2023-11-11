@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Header, Icon, Input, Button, ListItem } from '@rneui/themed';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { View,Text } from 'react-native';
-import { app, getAuth }from '../services/firebase';
+import { app, getAuth, database }from '../services/firebase';
 
 export default function Login({ loggedUser, setLoggedUser }){
 
@@ -18,7 +18,6 @@ export default function Login({ loggedUser, setLoggedUser }){
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setLoggedUser(userCredential.user)
-                // ...
             })
             .catch((error) => {
                 const errorCode = error.code;
