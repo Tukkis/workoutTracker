@@ -10,15 +10,15 @@ import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { push, ref, onValue, remove } from 'firebase/database';
 import { app, database, getAuth, getApp }from './services/firebase';
 import Home from './navComponents/Home';
-import AddWorkout from './components/AddWorkout';
-import Profile from './components/Profile';
-import Login from './components/Login';
+import AddWorkout from './pages/AddWorkout';
+import Profile from './pages/Profile';
+import Login from './pages/Login';
 
 export default function App() {
 
   const [ loggedUser, setLoggedUser ] = useState(null);
   const [ workouts, setWorkouts ] = useState([])
-  const [ excercises, setExcercises ] = useState([{name: "Bench press", type: "Weight training"}, {name:"Spinning", type:"Cardio"}])
+  const [ excercises, setExcercises ] = useState([{name: "Bench press", type: "Weight training", id: 1}, {name:"Spinning", type:"Cardio", id: 2}])
 
   const auth = getAuth(app);
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Header, Icon, Input, Button, ListItem } from '@rneui/themed';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import HomeScreen from '../components/HomeScreen';
-import Excercises from '../components/Excercises';
+import HomeScreen from '../pages/HomeScreen';
+import Excercises from '../pages/Excercises';
 
 export default function Home({ navigation }){
 
