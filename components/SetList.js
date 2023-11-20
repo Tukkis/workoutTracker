@@ -1,38 +1,37 @@
 import React, { useState } from 'react';
-import { Header, Icon, Input, Button, ListItem } from '@rneui/themed';
-import { FlatList } from 'react-native';
+import { Header, Icon, Button, ListItem } from '@rneui/themed';
+import { FlatList, TextInput, View, Text } from 'react-native';
 
 
 
-export default function SetList ({ data, addSet, removeSetFromExcercise}){
-
+export default function SetList ({ data, addSet, removeSetFromExcercise, excerciseId, handleResistanceInput, handleAmountInput}){
 
     return(
-        <Button icon={{name: 'add'}} onPress={() => console.log(data)} title="log data" color={'gray'} /> 
-        /* <FlatList 
-        keyExtractor={(set, index) => index}
-        renderItem={({set}) =>{ 
-            <ListItem>
-                <ListItem.Content>
-                    <ListItem.Title>{set.amount}</ListItem.Title>
-                    <ListItemInput
-                    label='amount'
-                    placeholder='amount'
-                    onChangeText={amount =>  handleAmountInput(amount,i,index)}
-                    value={currentWorkOut[i].sets[index].amount}/>
-                    <ListItem.Title>{set.resistance}</ListItem.Title>
-                    <ListItemInput
-                    label='resistance'
-                    placeholder='resistance'
-                    onChangeText={resistance => handleResistanceInput(resistance,i,index)}
-                    value={currentWorkOut[i].sets[index].resistance}/>
-                </ListItem.Content>
-                <Icon type='material' name='add' style={{color: 'red'}} onPress={() => addSet(i)} />
-                <Icon type='material' name='delete' style={{color: 'red'}} onPress={() => removeSetFromExcercise(i,index)} />
-            </ListItem> 
+        <View>
+            <FlatList 
+            keyExtractor={(item, index) => index}
+            renderItem={({item, index}) =>
+                <View>
+                    <View>
+                        <Text>{item.amount}</Text>
+                        <TextInput
+                        label='amount'
+                        placeholder='amount'
+                        onChangeText={amount =>  handleAmountInput(amount, excerciseId, item)}
+                        value={data.sets[index].amount}/>
+                        <Text>{item.resistance}</Text>
+                        <TextInput
+                        label='resistance'
+                        placeholder='resistance'
+                        onChangeText={resistance => handleResistanceInput(resistance, excerciseId, item)}
+                        value={data.sets[index].resistance}/>
+                    </View>
+                    <Icon type='material' name='delete' style={{color: 'red'}} onPress={() => console.log(item.amount)} />
+                </View> 
             }
-        }
-        data={data.sets ? data.sets : [] }
-        /> */
+            data={data.sets.length > 0 ? data.sets : [] }
+            />
+            <Button icon={{name: 'add'}} onPress={() => addSet(excerciseId)} title="add set" color={'gray'} />
+        </View>
   )
 }

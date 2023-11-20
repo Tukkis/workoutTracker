@@ -10,8 +10,7 @@ export default function AddWorkout({ navigation, saveWorkout, excercises }){
     const [ addNewState, setAddNewState ] = useState(true)
 
     const addExcerciseToCurrentWorkOut = (item) => {
-        console.log(item.id, item)
-        setCurrentWorkOut([...currentWorkOut, {...item, sets:[{amount:'f', resistance:''}]}])
+        setCurrentWorkOut([...currentWorkOut, {...item, sets:[{amount:'amount', resistance:'resistance'}]}])
     }
 
     const removeExcerciseFromCurrentWorkOut = (item) => {
@@ -20,9 +19,14 @@ export default function AddWorkout({ navigation, saveWorkout, excercises }){
         })
     }
 
-    const addSet = (excerciseIndex) => {
-        const copy = [...currentWorkOut]
-        copy[excerciseIndex].sets.push({amount:'', resistance:''})
+    const addSet = (excerciseId) => {
+        for(let i = 0; i < currentWorkOut.length; i++){
+            if (excerciseId = currentWorkOut[i]){
+                const copy = [...currentWorkOut]
+                copy[i].sets.push({amount:'', resistance:''})
+                setCurrentWorkOut(copy)
+            } 
+        }
     }
 
     const handleAmountInput = (value,excerciseIndex,setIndex) => {
@@ -50,7 +54,7 @@ export default function AddWorkout({ navigation, saveWorkout, excercises }){
                 <Button icon={{name: 'add'}} onPress={() => navigation.navigate('Excercises')} title="Add a new excercise" color={'gray'} /> 
             </View> : 
             <View>
-                <ExcerciseSetList addSet={addSet} removeSetFromExcercise={removeSetFromExcercise} data={currentWorkOut} onPressFunc={removeExcerciseFromCurrentWorkOut} filter={false}/>
+                <ExcerciseSetList addSet={addSet} removeSetFromExcercise={removeSetFromExcercise} data={currentWorkOut} onPressFunc={removeExcerciseFromCurrentWorkOut} filter={false} handleResistanceInput={handleResistanceInput} handleAmountInput={handleAmountInput}/>
                 <Button icon={{name: 'add'}} onPress={() => setAddNewState(true)} title="Add an excercise to workout" color={'gray'} /> 
                 <Button icon={{name: 'save'}} onPress={() => saveWorkout()} title="save" color={'gray'} />
             </View>}
