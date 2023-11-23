@@ -18,7 +18,7 @@ export default function App() {
 
   const [ loggedUser, setLoggedUser ] = useState(null);
   const [ workouts, setWorkouts ] = useState([])
-  const [ excercises, setExcercises ] = useState([{name: "Bench press", type: "Weight training", id: 1}, {name:"Spinning", type:"Cardio", id: 2}])
+  const [ excercises, setExcercises ] = useState([/* {name: "Bench press", type: "Weight training", id: 1}, {name:"Spinning", type:"Cardio", id: 2} */])
 
   const auth = getAuth(app);
 
@@ -32,13 +32,17 @@ export default function App() {
     }
   });
 
-  useEffect(() => {
-    const workoutsRef = ref(database, 'workouts/');
+  const getExcercises = () => {
+    const workoutsRef = ref(database, 'excercises/');
     onValue(workoutsRef, (snapshot) => {
       const data = snapshot.val();
       const workoutsData = data ? Object.keys(data).map(key => ({key, ...data[key]})) : [];
-      setWorkouts(workoutsData);
+      setExcercises(workoutsData);
     })
+  }
+
+  useEffect(() => {
+    getExcercises()
   }, []);
     
 
@@ -70,7 +74,9 @@ export default function App() {
           headerShown: false
         }}
         >
-          <Tab.Screen name="Home" component={Home} />
+          <Tab.Screen name="Home">
+          {(props) => <Home {...props} saveExcercise={saveExcercise} deleteExcercise={deleteExcercise} loggedUser={loggedUser} setExcercises={setExcercises} excercises={excercises} />}
+          </Tab.Screen>
           <Tab.Screen name="AddWorkout">
           {(props) => <AddWorkout {...props} saveWorkout={saveWorkout} excercises={excercises} deleteExcercise={deleteExcercise} />}
           </Tab.Screen>

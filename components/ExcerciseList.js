@@ -5,6 +5,7 @@ import { FlatList } from 'react-native';
 export default function ExcerciseList({data, onPressFunc ,currentWorkOut}){
 
     const containsId =(id, list) => {
+        console.log(id, list)
         for (let i = 0; i < list.length; i++) {
             if (list[i].id === id) {
                 return true;
