@@ -33,18 +33,27 @@ export default function App() {
   });
 
   const getExcercises = () => {
-    const workoutsRef = ref(database, 'excercises/');
+    const excercisesRef = ref(database, 'excercises/');
+    onValue(excercisesRef, (snapshot) => {
+      const data = snapshot.val();
+      const excercisesData = data ? Object.keys(data).map(key => ({key, ...data[key]})) : [];
+      setExcercises(excercisesData);
+    })
+  }
+
+  const getWorkouts = () => {
+    const workoutsRef = ref(database, 'workouts/');
     onValue(workoutsRef, (snapshot) => {
       const data = snapshot.val();
       const workoutsData = data ? Object.keys(data).map(key => ({key, ...data[key]})) : [];
-      setExcercises(workoutsData);
+      setWorkouts(workoutsData);
     })
   }
 
   useEffect(() => {
     getExcercises()
+    getWorkouts()
   }, []);
-    
 
   const saveWorkout = (item) => {
     push(ref(database, 'workouts/'), item);
@@ -75,10 +84,10 @@ export default function App() {
         }}
         >
           <Tab.Screen name="Home">
-          {(props) => <Home {...props} saveExcercise={saveExcercise} deleteExcercise={deleteExcercise} loggedUser={loggedUser} setExcercises={setExcercises} excercises={excercises} />}
+          {(props) => <Home {...props} saveExcercise={saveExcercise} deleteExcercise={deleteExcercise} loggedUser={loggedUser} setExcercises={setExcercises} excercises={excercises} workouts={workouts} />}
           </Tab.Screen>
           <Tab.Screen name="AddWorkout">
-          {(props) => <AddWorkout {...props} saveWorkout={saveWorkout} excercises={excercises} deleteExcercise={deleteExcercise} />}
+          {(props) => <AddWorkout {...props} saveWorkout={saveWorkout} excercises={excercises} deleteExcercise={deleteExcercise} loggedUser={loggedUser} />}
           </Tab.Screen>
           <Tab.Screen name="Profile">
           {(props) => <Profile {...props} loggedUser={loggedUser} />}

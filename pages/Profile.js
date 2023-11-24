@@ -28,7 +28,7 @@ export default function Profile({ navigation, loggedUser }){
     
     const logOut = () => {
         Alert.alert(
-            'Are you sure you want to sign out?',
+            'Are you sure you want to sign out?', 'My Alert Msg',
             [
               {text: 'NO', onPress: () => '', style: 'cancel'},
               {text: 'YES', onPress: () => signOut(auth)},
@@ -38,7 +38,7 @@ export default function Profile({ navigation, loggedUser }){
 
     return(
         <View>
-        {editMode ? 
+        {!editMode ? 
             <View>
                 <Header centerComponent={{ text: 'Profile'}} />
                 <Button onPress={() => logOut()} title={'Logout'}></Button>

@@ -4,7 +4,7 @@ import { FlatList, TextInput, View, Text } from 'react-native';
 
 
 
-export default function SetList ({ data, addSet, removeSetFromExcercise, excerciseId, handleResistanceInput, handleAmountInput}){
+export default function SetList ({ data, addSet, removeSetFromExcercise, excerciseKey, handleAmountInput, handleResistanceInput }){
 
     return(
         <View>
@@ -13,25 +13,25 @@ export default function SetList ({ data, addSet, removeSetFromExcercise, excerci
             renderItem={({item, index}) =>
                 <View>
                     <View>
-                        <Text>{item.amount}</Text>
+                        <Text>Reps</Text>
                         <TextInput
                         label='amount'
                         placeholder='amount'
-                        onChangeText={amount =>  handleAmountInput(amount, excerciseId, item)}
+                        onChangeText={amount =>  handleAmountInput(amount, excerciseKey, index)}
                         value={data.sets[index].amount}/>
-                        <Text>{item.resistance}</Text>
+                        <Text>Resistance</Text>
                         <TextInput
                         label='resistance'
                         placeholder='resistance'
-                        onChangeText={resistance => handleResistanceInput(resistance, excerciseId, item)}
+                        onChangeText={resistance => handleResistanceInput(resistance, excerciseKey, index)}
                         value={data.sets[index].resistance}/>
                     </View>
-                    <Icon type='material' name='delete' style={{color: 'red'}} onPress={() => console.log(item.amount)} />
+                    <Icon type='material' name='delete' style={{color: 'red'}} onPress={() => removeSetFromExcercise(index, excerciseKey)} />
                 </View> 
             }
             data={data.sets.length > 0 ? data.sets : [] }
             />
-            <Button icon={{name: 'add'}} onPress={() => addSet(excerciseId)} title="add set" color={'gray'} />
+            <Button icon={{name: 'add'}} onPress={() => addSet(excerciseKey)} title="add set" color={'gray'} />
         </View>
   )
 }

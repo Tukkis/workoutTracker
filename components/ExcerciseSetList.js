@@ -12,7 +12,7 @@ export default function ExcerciseSetList({data, onPressFunc, removeSetFromExcerc
             <ListItem.Content>
                 <ListItem.Title>{item.name}</ListItem.Title>
                 <ListItem.Subtitle style={{color: 'grey'}}>{item.type}</ListItem.Subtitle>
-                <SetList data={item} addSet={addSet} removeSetFromExcercise={removeSetFromExcercise} excerciseId={item.id} handleResistanceInput={handleResistanceInput} handleAmountInput={handleAmountInput} />
+                <SetList data={item} addSet={addSet} removeSetFromExcercise={removeSetFromExcercise} excerciseKey={item.key} handleResistanceInput={handleResistanceInput} handleAmountInput={handleAmountInput} />
             </ListItem.Content>
             <Icon type='material' name='delete' style={{color: 'red'}} onPress={() => onPressFunc(item)} />
             </ListItem>

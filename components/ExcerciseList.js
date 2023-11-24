@@ -2,17 +2,19 @@ import React, {useState, useEffect} from 'react';
 import { Header, Icon, Input, Button, ListItem } from '@rneui/themed';
 import { FlatList } from 'react-native';
 
-export default function ExcerciseList({data, onPressFunc ,currentWorkOut}){
+export default function ExcerciseList({data, onPressFunc ,currentWorkOut, loggedUser}){
 
-    const containsId =(id, list) => {
-        console.log(id, list)
+    const isNotInCurrentWorkOutAndIsLoggedUsers =(item, list) => {
+        if (item.userId != loggedUser.uid){
+            return false;
+        }
         for (let i = 0; i < list.length; i++) {
-            if (list[i].id === id) {
-                return true;
+            if (list[i].key === item.key) {
+                return false;
             }
         }
     
-        return false;
+        return true;
     }
 
     return(
@@ -20,7 +22,7 @@ export default function ExcerciseList({data, onPressFunc ,currentWorkOut}){
             <FlatList
             keyExtractor={(item, i) => i}
             renderItem={({item}) =>
-            !containsId(item.id, currentWorkOut) ? 
+            isNotInCurrentWorkOutAndIsLoggedUsers(item, currentWorkOut) ? 
                 <ListItem>
                 <ListItem.Content>
                     <ListItem.Title>{item.name}</ListItem.Title>

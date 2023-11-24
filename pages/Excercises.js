@@ -4,15 +4,21 @@ import { FlatList, View } from 'react-native';
 
 export default function Excercises({ navigation, setExcercises, loggedUser, excercises, saveExcercise, deleteExcercise }){
 
-    let idTracker = excercises.length > 0 ? excercises[excercises.length - 1].id : 0
 
-    const [ newExcercise, setNewExcercise ] = useState({name: "", type: "", id: idTracker++})
+    const [ newExcercise, setNewExcercise ] = useState({name: "", type: "", userId:loggedUser.uid})
     const [ addNew, setAddnew ] = useState(false)
 
 
     const handleSave = () => {
         saveExcercise(newExcercise)
         setAddnew(false)
+    }
+
+    const isLoggedUsers = (item) => {
+        if (item.userId != loggedUser.uid){
+            return false;
+        }
+        return true
     }
 
     return(
@@ -37,6 +43,7 @@ export default function Excercises({ navigation, setExcercises, loggedUser, exce
                 <FlatList
                 keyExtractor={(item, i) => i}
                 renderItem={({item}) =>
+                    isLoggedUsers(item) ?
                     <ListItem>
                     <ListItem.Content>
                         <ListItem.Title>{item.name}</ListItem.Title>
@@ -44,6 +51,8 @@ export default function Excercises({ navigation, setExcercises, loggedUser, exce
                     </ListItem.Content>
                     <Icon type='material' name='delete' style={{color: 'red'}} onPress={() => deleteExcercise(item.key)} />
                     </ListItem>
+                    :
+                    ''
                 }
                 data={excercises}
                 />
