@@ -11,7 +11,7 @@ export default function Home({ navigation, setExcercises, loggedUser, excercises
     return(
             <Stack.Navigator>
                 <Stack.Screen name="HomeScreen">
-                    {(props) => <HomeScreen {...props} workouts={workouts} />}
+                    {(props) => <HomeScreen {...props} workouts={workouts} loggedUser={loggedUser} />}
                 </Stack.Screen>
                 <Stack.Screen name="Excercises">
                     {(props) => <Excercises {...props} saveExcercise={saveExcercise} deleteExcercise={deleteExcercise} loggedUser={loggedUser} setExcercises={setExcercises} excercises={excercises} />}

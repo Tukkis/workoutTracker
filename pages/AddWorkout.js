@@ -20,7 +20,12 @@ export default function AddWorkout({ navigation, saveWorkout, excercises, logged
     }
 
     const handleSave = () => {
-        saveWorkout({userId:loggedUser.uid, workout:[currentWorkOut]})
+        const date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+        let currentDate = `${day}-${month}-${year}`;
+        saveWorkout({date:currentDate, userId:loggedUser.uid, workout:[currentWorkOut]})
         setCurrentWorkOut([])
     }
 
