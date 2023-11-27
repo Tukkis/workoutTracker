@@ -6,6 +6,11 @@ import { FlatList, TextInput, View, Text } from 'react-native';
 
 export default function SetList ({ data, addSet, removeSetFromExcercise, excerciseKey, handleAmountInput, handleResistanceInput }){
 
+    let defaultTemp={editingIndex:-1,text:''}
+
+    let [amountTemp,setAmountTemp] = useState(defaultTemp); 
+    let [resistanceTemp,setResistanceTemp] = useState(defaultTemp);
+
     return(
         <View>
             <FlatList 
@@ -15,16 +20,34 @@ export default function SetList ({ data, addSet, removeSetFromExcercise, excerci
                     <View>
                         <Text>Reps</Text>
                         <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                         label='amount'
                         placeholder='amount'
-                        onChangeText={amount =>  handleAmountInput(amount, excerciseKey, index)}
-                        value={data.sets[index].amount}/>
+                        keyboardType='number-pad'
+                        onFocus={()=>setAmountTemp({editingIndex:index,text:data.sets[index].amount})}
+                        onBlur={()=>{
+                            console.log(amountTemp.text)
+                            handleAmountInput(amountTemp.text, excerciseKey, index)
+                            setAmountTemp(defaultTemp)
+                            }
+                        }
+                        onChangeText={text => setAmountTemp({text,editingIndex:index})}
+                        value={amountTemp.editingIndex===index?amountTemp.text:data.sets[index].amount/* data.sets[index].amount */}/>
                         <Text>Resistance</Text>
                         <TextInput
+                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
                         label='resistance'
+                        keyboardType='number-pad'
                         placeholder='resistance'
-                        onChangeText={resistance => handleResistanceInput(resistance, excerciseKey, index)}
-                        value={data.sets[index].resistance}/>
+                        onFocus={()=>setResistanceTemp({editingIndex:index,text:data.sets[index].resistance})}
+                        onBlur={()=>{
+                            console.log(resistanceTemp.text)
+                            handleResistanceInput(resistanceTemp.text, excerciseKey, index)
+                            setResistanceTemp(defaultTemp)
+                            }
+                        }
+                        onChangeText={text => setResistanceTemp({text,editingIndex:index})}
+                        value={resistanceTemp.editingIndex===index?resistanceTemp.text:data.sets[index].resistance}/>
                     </View>
                     <Icon type='material' name='delete' style={{color: 'red'}} onPress={() => removeSetFromExcercise(index, excerciseKey)} />
                 </View> 

@@ -34,7 +34,6 @@ export default function ExcerciseList({data, onPressFunc ,currentWorkOut, logged
             }
             data={data}
             />
-            <Button icon={{name: 'add'}} onPress={() => console.log(currentWorkOut, data)} title="data" color={'gray'} />
         </>
     )
 }

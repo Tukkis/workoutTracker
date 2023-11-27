@@ -1,11 +1,15 @@
 import React from 'react';
 import { Header, Icon, Input, Button, ListItem } from '@rneui/themed';
-import { FlatList } from 'react-native';
+import { FlatList, Text } from 'react-native';
 import SetList from './SetList';
 
 export default function ExcerciseSetList({data, onPressFunc, removeSetFromExcercise, addSet, handleResistanceInput, handleAmountInput}){
+    
     return(
+        <>
+        <Text></Text>
         <FlatList
+        vertical
         keyExtractor={(item, i) => i}
         renderItem={({item}) =>
             <ListItem style={{display:'block'}}>
@@ -19,5 +23,6 @@ export default function ExcerciseSetList({data, onPressFunc, removeSetFromExcerc
         }
         data={data}
         />
+        </>
   )
 }

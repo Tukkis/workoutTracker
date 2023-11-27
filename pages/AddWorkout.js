@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Header, Icon, Input, Button, ListItem } from '@rneui/themed';
+import { Header, Button } from '@rneui/themed';
 import { View } from 'react-native';
+import { ScrollView } from 'react-native-virtualized-view';
 import ExcerciseSetList from '../components/ExcerciseSetList';
 import ExcerciseList from '../components/ExcerciseList';
 
@@ -70,7 +71,8 @@ export default function AddWorkout({ navigation, saveWorkout, excercises, logged
     }
 
     return(
-        <View>
+        <ScrollView>
+        <View style={{flexGrow: 1}}>
             { addNewState ? <View>
                 <Header centerComponent={{ text: 'Add an excercise to your workout'}} />
                 <ExcerciseList data={excercises} onPressFunc={addExcerciseToCurrentWorkOut} currentWorkOut={currentWorkOut} loggedUser={loggedUser}/>
@@ -84,5 +86,6 @@ export default function AddWorkout({ navigation, saveWorkout, excercises, logged
             </View>}
             
         </View>
+        </ScrollView>
     )
 }

@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Header, Icon, Input, Button, ListItem } from '@rneui/themed';
 import { onAuthStateChanged } from "firebase/auth";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import ReactNativeAsyncStorage from '@react-native-async-storage/async-storage';
 import { push, ref, onValue, remove } from 'firebase/database';
 import { app, database, getAuth, getApp }from './services/firebase';
 import Home from './navComponents/Home';
