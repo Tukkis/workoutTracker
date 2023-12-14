@@ -3,7 +3,7 @@ import { Dimensions } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
 import SelectDropdown from 'react-native-select-dropdown'
 
-export default function Chart({workouts, navigation, loggedUser}){
+export default function WorkoutChart({workouts, navigation, loggedUser}){
    
     function Last7Days (dropYear) {
         return '0123456'.split('').map(function(n) {
@@ -65,7 +65,7 @@ export default function Chart({workouts, navigation, loggedUser}){
                         for(let y = 0; y < workouts[i].workout[j][k].sets.length; y++){
                             copyMonth[month][0] += Number(workouts[i].workout[j][k].sets[y].amount)
                             copyMonth[month][1] += Number(workouts[i].workout[j][k].sets[y].resistance)
-                            if(indexOfDay){
+                            if(indexOfDay >= 0){
                                 copyWeek[indexOfDay][0] += Number(workouts[i].workout[j][k].sets[y].amount)
                                 copyWeek[indexOfDay][1] += Number(workouts[i].workout[j][k].sets[y].resistance)
                             }

@@ -6,10 +6,11 @@ import { onAuthStateChanged } from "firebase/auth";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { push, ref, onValue, remove } from 'firebase/database';
 import { app, database, getAuth, getApp }from './services/firebase';
-import Home from './navComponents/Home';
+import Workout from './navComponents/Workout';
 import AddWorkout from './pages/AddWorkout';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
+import HomeScreen from './pages/HomeScreen';
 
 export default function App() {
 
@@ -81,10 +82,10 @@ export default function App() {
         }}
         >
           <Tab.Screen name="Home">
-          {(props) => <Home {...props} saveExcercise={saveExcercise} deleteExcercise={deleteExcercise} loggedUser={loggedUser} setExcercises={setExcercises} excercises={excercises} workouts={workouts} />}
+          {(props) => <HomeScreen {...props}  workouts={workouts} loggedUser={loggedUser} />}
           </Tab.Screen>
-          <Tab.Screen name="AddWorkout">
-          {(props) => <AddWorkout {...props} saveWorkout={saveWorkout} excercises={excercises} deleteExcercise={deleteExcercise} loggedUser={loggedUser} />}
+          <Tab.Screen name="Workout">
+          {(props) => <Workout {...props} setExcercises={setExcercises} saveExcercise={saveExcercise} workouts={workouts} saveWorkout={saveWorkout} excercises={excercises} deleteExcercise={deleteExcercise} loggedUser={loggedUser} />}
           </Tab.Screen>
           <Tab.Screen name="Profile">
           {(props) => <Profile {...props} loggedUser={loggedUser} />}
