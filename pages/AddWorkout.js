@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Header, Button } from '@rneui/themed';
-import { View } from 'react-native';
+import { View, Text } from 'react-native';
 import { ScrollView } from 'react-native-virtualized-view';
 import ExcerciseSetList from '../components/ExcerciseSetList';
 import ExcerciseList from '../components/ExcerciseList';
@@ -11,6 +11,7 @@ export default function AddWorkout({ navigation, saveWorkout, excercises, logged
     const [ addNewState, setAddNewState ] = useState(true)
 
     const addExcerciseToCurrentWorkOut = (item) => {
+        setAddNewState(false)
         setCurrentWorkOut([...currentWorkOut, {...item, sets:[{amount:'', resistance:''}]}])
     }
 
@@ -75,14 +76,15 @@ export default function AddWorkout({ navigation, saveWorkout, excercises, logged
         <View style={{flexGrow: 1}}>
             { addNewState ? <View>
                 <Header centerComponent={{ text: 'Add an excercise to your workout'}} />
+                <Button icon={{name: 'done'}} onPress={() => setAddNewState(false)} title="Back to workout" /> 
                 <ExcerciseList data={excercises} onPressFunc={addExcerciseToCurrentWorkOut} currentWorkOut={currentWorkOut} loggedUser={loggedUser}/>
-                <Button icon={{name: 'done'}} onPress={() => setAddNewState(false)} title="Back to workout" color={'gray'} /> 
-                <Button icon={{name: 'add'}} onPress={() => navigation.navigate('Excercises')} title="Add a new excercise" color={'gray'} /> 
+                <Button icon={{name: 'add'}} onPress={() => navigation.navigate('Excercises')} title="Add a new excercise" /> 
             </View> : 
             <View>
+                <Text style={{paddingTop:15}}></Text>
+                <Button onPress={() => handleSave()} title="Save workout" color={'green'}/>
                 <ExcerciseSetList addSet={addSet} removeSetFromExcercise={removeSetFromExcercise} data={currentWorkOut} onPressFunc={removeExcerciseFromCurrentWorkOut} filter={false} handleResistanceInput={handleResistanceInput} handleAmountInput={handleAmountInput}/>
-                <Button icon={{name: 'add'}} onPress={() => setAddNewState(true)} title="Add an excercise to workout" color={'gray'} /> 
-                <Button icon={{name: 'save'}} onPress={() => handleSave()} title="save" color={'gray'} />
+                <Button icon={{name: 'add'}} onPress={() => setAddNewState(true)} title="Add an excercise to workout" /> 
             </View>}
             
         </View>

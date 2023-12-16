@@ -16,45 +16,53 @@ export default function SetList ({ data, addSet, removeSetFromExcercise, excerci
             <FlatList 
             keyExtractor={(item, index) => index}
             renderItem={({item, index}) =>
-                <View>
-                    <View>
-                        <Text>Reps</Text>
-                        <TextInput
-                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                        label='amount'
-                        placeholder='amount'
-                        keyboardType='number-pad'
-                        onFocus={()=>setAmountTemp({editingIndex:index,text:data.sets[index].amount})}
-                        onBlur={()=>{
-                            console.log(amountTemp.text)
-                            handleAmountInput(amountTemp.text, excerciseKey, index)
-                            setAmountTemp(defaultTemp)
+                <View style={{paddingTop:15}}>
+                    <View style={{flexDirection:'row', alignContent:'stretch', paddingBottom:5}}>
+                        <View style={{flexDirection:'row',  marginRight:'auto'}}>
+                            <Icon style={{width:50, height:50, paddingTop:15}}  name='cancel' onPress={() => removeSetFromExcercise(index, excerciseKey)} />
+                            <View>
+                                <Text>Reps</Text>
+                                <TextInput
+                                style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                                label='amount'
+                                placeholder='amount'
+                                keyboardType='number-pad'
+                                onFocus={()=>setAmountTemp({editingIndex:index,text:data.sets[index].amount})}
+                                onBlur={()=>{
+                                    console.log(amountTemp.text)
+                                    handleAmountInput(amountTemp.text, excerciseKey, index)
+                                    setAmountTemp(defaultTemp)
+                                    }
+                                }
+                                onChangeText={text => setAmountTemp({text,editingIndex:index})}
+                                value={amountTemp.editingIndex===index?amountTemp.text:data.sets[index].amount/* data.sets[index].amount */}/>
+                            </View>
+                        </View>
+                        <View style={{ marginRight:'auto'}}>
+                            <Text>Resistance</Text>
+                            <TextInput
+                            style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
+                            label='resistance'
+                            keyboardType='number-pad'
+                            placeholder='resistance'
+                            onFocus={()=>setResistanceTemp({editingIndex:index,text:data.sets[index].resistance})}
+                            onBlur={()=>{
+                                console.log(resistanceTemp.text)
+                                handleResistanceInput(resistanceTemp.text, excerciseKey, index)
+                                setResistanceTemp(defaultTemp)
+                                }
                             }
-                        }
-                        onChangeText={text => setAmountTemp({text,editingIndex:index})}
-                        value={amountTemp.editingIndex===index?amountTemp.text:data.sets[index].amount/* data.sets[index].amount */}/>
-                        <Text>Resistance</Text>
-                        <TextInput
-                        style={{ height: 40, borderColor: 'gray', borderWidth: 1 }}
-                        label='resistance'
-                        keyboardType='number-pad'
-                        placeholder='resistance'
-                        onFocus={()=>setResistanceTemp({editingIndex:index,text:data.sets[index].resistance})}
-                        onBlur={()=>{
-                            console.log(resistanceTemp.text)
-                            handleResistanceInput(resistanceTemp.text, excerciseKey, index)
-                            setResistanceTemp(defaultTemp)
-                            }
-                        }
-                        onChangeText={text => setResistanceTemp({text,editingIndex:index})}
-                        value={resistanceTemp.editingIndex===index?resistanceTemp.text:data.sets[index].resistance}/>
+                            onChangeText={text => setResistanceTemp({text,editingIndex:index})}
+                            value={resistanceTemp.editingIndex===index?resistanceTemp.text:data.sets[index].resistance}/>
+                        </View>
                     </View>
-                    <Icon type='material' name='delete' style={{color: 'red'}} onPress={() => removeSetFromExcercise(index, excerciseKey)} />
                 </View> 
             }
             data={data.sets.length > 0 ? data.sets : [] }
             />
-            <Button icon={{name: 'add'}} onPress={() => addSet(excerciseKey)} title="add set" color={'gray'} />
+            <View style={{width: 150, alignSelf:'center', paddingBottom:5}}>
+                <Button icon={{name: 'add'}} onPress={() => addSet(excerciseKey)} title="add set" />
+            </View>
         </View>
   )
 }

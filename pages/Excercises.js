@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Header, Icon, Input, Button, ListItem } from '@rneui/themed';
-import { FlatList, View } from 'react-native';
+import { FlatList, View, Text } from 'react-native';
 import { ScrollView } from 'react-native-virtualized-view';
 
 
@@ -25,8 +25,10 @@ export default function Excercises({ navigation, setExcercises, loggedUser, exce
 
     return(
         <ScrollView>
+            <Text></Text>
             {addNew ?
                 <View>
+                    <Text></Text>
                     <Input
                     label='Name'
                     placeholder='excercise name'
@@ -37,8 +39,8 @@ export default function Excercises({ navigation, setExcercises, loggedUser, exce
                     placeholder='excercise type'
                     onChangeText={excerciseType => setNewExcercise({...newExcercise, type: excerciseType})}
                     value={newExcercise.type}/>
-                    <Button icon={{name: 'add'}} onPress={() => handleSave()} title="add" color={'gray'} />
-                    <Button icon={{name: 'clear'}} onPress={() => setAddnew(false)} title="Back" color={'gray'} />
+                    <Button icon={{name: 'add'}} onPress={() => handleSave()} title="add" />
+                    <Button icon={{name: 'clear'}} onPress={() => setAddnew(false)} title="Back" color={'red'} />
                 </View>
                 :
                 <>
@@ -58,7 +60,7 @@ export default function Excercises({ navigation, setExcercises, loggedUser, exce
                 }
                 data={excercises}
                 />
-                <Button icon={{name: 'add'}} onPress={() => setAddnew(true)} title="addNew" color={'gray'} />
+                <Button icon={{name: 'add'}} onPress={() => setAddnew(true)} title="addNew" />
                 </>
             }
         </ScrollView>

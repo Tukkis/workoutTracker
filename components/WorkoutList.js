@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {Button} from '@rneui/themed';
-import { FlatList, Text, View, Dimensions } from 'react-native';
+import {Header, Button} from '@rneui/themed';
+import { FlatList, Text, View } from 'react-native';
 import WorkoutChart from './WorkoutChart';
 
 export default function WorkoutList({ navigation, workouts, loggedUser }){
@@ -9,6 +9,7 @@ export default function WorkoutList({ navigation, workouts, loggedUser }){
     
     return(
         <>
+        <Header centerComponent={{text: "Welcome to the workoutList app"}} />
         {
         selected ? 
         <>
@@ -16,21 +17,27 @@ export default function WorkoutList({ navigation, workouts, loggedUser }){
         <FlatList 
         keyExtractor={(item, i) => i}
         renderItem={({item}) =>
-            <>
-                <Text>{item.name}</Text>
-                <Text>{item.type}</Text>
+            <View>
+                <Text style={{textAlign: 'center', paddingTop:5, fontSize:16, fontWeight:'bold'}}>Excercise: {item.name}</Text>
+                <Text style={{textAlign: 'center', paddingBottom:15, fontSize:16}}>Type: {item.type}</Text>
                 <FlatList 
                 keyExtractor={(item, i) => i}
                 renderItem={({item}) =>
-                    <>
-                    <Text>reps resistance</Text>
-                    <Text>{item.amount} {item.resistance}</Text>
-                    </>
+                    <View style={{borderTopWidth: 1, padding: 3, flexDirection:"row", flex: 1, alignItems:'stretch', justifyContent:'space-evenly'}}>
+                        <View>
+                            <Text>reps</Text>
+                            <Text style={{justifyContent: 'flex-start'}}>{item.amount}</Text>
+                        </View>
+                        <View>
+                            <Text>resistance</Text>
+                            <Text style={{justifyContent: 'flex-end'}}>{item.resistance}</Text>
+                        </View>
+                    </View>
                 }
                 data={item.sets}
                 />
-                <Text></Text>
-            </>
+                <Text style={{borderTopWidth:1}}></Text>
+            </View>
         }
         data={selected[0]}
         />

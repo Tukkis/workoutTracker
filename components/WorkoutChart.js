@@ -123,9 +123,9 @@ export default function WorkoutChart({workouts, navigation, loggedUser}){
         yAxisLabel={""}
         yAxisInterval={1}
         chartConfig={{
-            backgroundColor: "#e26a00",
-            backgroundGradientFrom: "#fb8c00",
-            backgroundGradientTo: "#ffa726",
+            backgroundColor: "#17c1e8",
+            backgroundGradientFrom: "#17c1e8",
+            backgroundGradientTo: "#17c1e8",
             decimalPlaces: 2,
             color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
             labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
@@ -135,7 +135,7 @@ export default function WorkoutChart({workouts, navigation, loggedUser}){
             propsForDots: {
             r: "6",
             strokeWidth: "2",
-            stroke: "#ffa726"
+            stroke: "#3B5998"
             }
         }}
         bezier

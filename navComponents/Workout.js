@@ -8,7 +8,9 @@ export default function Workout({ navigation, setExcercises, loggedUser, excerci
     const Stack = createNativeStackNavigator();
 
     return(
-            <Stack.Navigator>
+            <Stack.Navigator screenOptions={{
+                headerShown: false
+              }}>
                 <Stack.Screen name="AddWorkout">
                     {(props) => <AddWorkout {...props} workouts={workouts} loggedUser={loggedUser} saveWorkout={saveWorkout} excercises={excercises}/>}
                 </Stack.Screen>
