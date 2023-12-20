@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { Header, Icon, Input, Button, ListItem } from '@rneui/themed';
-import { Text, View, Image, Alert } from 'react-native';
-import { app, database, getAuth }from '../services/firebase';
+import { Header, Input, Button } from '@rneui/themed';
+import { Text, View, Alert } from 'react-native';
+import { app, getAuth }from '../services/firebase';
 import { updateProfile, signOut } from "firebase/auth";
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 
 export default function Profile({ navigation, loggedUser }){
@@ -15,11 +14,9 @@ export default function Profile({ navigation, loggedUser }){
 
     const updateLoggedUser = () => {
         updateProfile(auth.currentUser, {
-            displayName: inputUsername, photoURL: "https://reactnative.dev/img/tiny_logo.png"
+            displayName: inputUsername
           }).then(() => {
-            // Profile updated!
-            // ...
-            console.log(loggedUser)
+            setEditMode(false)
           }).catch((error) => {
             // An error occurred
             // ...
@@ -28,7 +25,7 @@ export default function Profile({ navigation, loggedUser }){
     
     const logOut = () => {
         Alert.alert(
-            'Are you sure you want to sign out?', 'My Alert Msg',
+            'You are about to log out!', 'Are you sure you want to log out?',
             [
               {text: 'NO', onPress: () => '', style: 'cancel'},
               {text: 'YES', onPress: () => signOut(auth)},
@@ -41,21 +38,18 @@ export default function Profile({ navigation, loggedUser }){
         {!editMode ? 
             <View>
                 <Header centerComponent={{ text: 'Profile'}} />
-                <Button onPress={() => logOut()} title={'Logout'}></Button>
-                <Image
-                    style={{width: 50, height: 50}}
-                    source={{ uri: loggedUser.photoURL }}
-                    PlaceholderContent={<Text>image</Text>}
-                />
-                <Text>{loggedUser.email}</Text>
-                <Text>{loggedUser.displayName}</Text>
-                <Button onPress={() => setEditMode(false)} title={'Edit profile'}></Button>
+                <Text style={{marginLeft: 10, fontSize:20}}>Email: {loggedUser.email}</Text>
+                <Text style={{marginLeft: 10, fontSize:20}}>Username: {loggedUser.displayName}</Text>
+                <View style={{flexDirection:'row', justifyContent:'space-around'}}>
+                    <Button onPress={() => setEditMode(true)} title={'Edit profile'}></Button>
+                    <Button onPress={() => logOut()} title={'Logout'}></Button>
+                </View>
             </View>  
             : 
             <View>
                 <Header centerComponent={{ text: 'Profile'}} />
-                <Button onPress={() => setEditMode(true)} title={'Cancel'}></Button>
-                <Text>{loggedUser.email}</Text>
+                <Button onPress={() => setEditMode(false)} title={'Cancel'}></Button>
+                <Text style={{marginLeft: 10, fontSize:20}}>{loggedUser.email}</Text>
                 <Input
                     label='Username'
                     placeholder='Username'

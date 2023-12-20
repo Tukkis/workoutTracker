@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
-import { Header, Icon, Input, Button, ListItem } from '@rneui/themed';
+import { Header, Input, Icon, Button, ListItem } from '@rneui/themed';
 import { FlatList, View, Text } from 'react-native';
 import { ScrollView } from 'react-native-virtualized-view';
 
 
-export default function Excercises({ navigation, setExcercises, loggedUser, excercises, saveExcercise, deleteExcercise }){
+export default function Excercises({ navigation, loggedUser, excercises, saveExcercise, deleteExcercise }){
 
-
-    const [ newExcercise, setNewExcercise ] = useState({name: "", type: "", userId:loggedUser.uid})
+    const [ newExcerciseName, setNewExcerciseName ] = useState("")
+    const [ newExcerciseType, setNewExcerciseType ] = useState("")
     const [ addNew, setAddnew ] = useState(false)
 
 
     const handleSave = () => {
-        saveExcercise(newExcercise)
+        saveExcercise({name:newExcerciseName, type:newExcerciseType, userId:loggedUser.uid})
         setAddnew(false)
     }
 
@@ -24,26 +24,26 @@ export default function Excercises({ navigation, setExcercises, loggedUser, exce
     }
 
     return(
-        <ScrollView>
-            <Text></Text>
+        <>
+            <Text style={{marginBottom:10}}></Text>
             {addNew ?
                 <View>
                     <Text></Text>
                     <Input
                     label='Name'
                     placeholder='excercise name'
-                    onChangeText={excerciseName => setNewExcercise({...newExcercise, name: excerciseName})}
-                    value={newExcercise.name}/>
+                    onChangeText={excerciseName => setNewExcerciseName(excerciseName)}
+                    value={newExcerciseName}/>
                     <Input
                     label='Type'
                     placeholder='excercise type'
-                    onChangeText={excerciseType => setNewExcercise({...newExcercise, type: excerciseType})}
-                    value={newExcercise.type}/>
+                    onChangeText={excerciseType => setNewExcerciseType(excerciseType)}
+                    value={newExcerciseType}/>
                     <Button icon={{name: 'add'}} onPress={() => handleSave()} title="add" />
                     <Button icon={{name: 'clear'}} onPress={() => setAddnew(false)} title="Back" color={'red'} />
                 </View>
                 :
-                <>
+                <ScrollView>
                 <FlatList
                 keyExtractor={(item, i) => i}
                 renderItem={({item}) =>
@@ -61,8 +61,8 @@ export default function Excercises({ navigation, setExcercises, loggedUser, exce
                 data={excercises}
                 />
                 <Button icon={{name: 'add'}} onPress={() => setAddnew(true)} title="addNew" />
-                </>
+                </ScrollView>
             }
-        </ScrollView>
+        </>
     )
 }

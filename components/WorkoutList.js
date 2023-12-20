@@ -45,13 +45,13 @@ export default function WorkoutList({ navigation, workouts, loggedUser }){
         :
         <>
         <WorkoutChart workouts={workouts} loggedUser={loggedUser}/>
-        <Text>Your workouts</Text>
+        <Text style={{marginTop:10, fontSize:20}}>Your workouts:</Text>
         <FlatList
         keyExtractor={(item, index) => index}
         renderItem={({item, index}) =>{
             if(loggedUser.uid === item.userId){
                 return(
-                    <Button onPress={() => setSelected(item.workout)} title={"workout " + workouts[index].date} color={'gray'} />
+                    <Button onPress={() => setSelected(item.workout)} title={"workout " + workouts[index].date} />
                 )
             }}
         }

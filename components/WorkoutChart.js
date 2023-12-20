@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react';
-import { Dimensions } from 'react-native';
+import { Dimensions, View, Text } from 'react-native';
 import { LineChart } from "react-native-chart-kit";
 import SelectDropdown from 'react-native-select-dropdown'
 
@@ -84,32 +84,38 @@ export default function WorkoutChart({workouts, navigation, loggedUser}){
 
     return(
         <>
-        <SelectDropdown
-        data={chartFilterOptions}
-        onSelect={(selectedItem, index) => {
-            handleFilterChange(index)
-        }}
-        buttonTextAfterSelection={(selectedItem, index) => {
-            return selectedItem + " per month"
-        }}
-        rowTextForSelection={(item, index) => {
-            return item
-        }}
-        defaultButtonText="Reps per month"
-        />
-        <SelectDropdown
-        data={chartDateFilterOptions}
-        onSelect={(selectedItem, index) => {
-            setChartTimeFilter(index)
-        }}
-        buttonTextAfterSelection={(selectedItem, index) => {
-            return selectedItem
-        }}
-        rowTextForSelection={(item, index) => {
-            return item
-        }}
-        defaultButtonText="Year"
-        />
+        <View style={{flexDirection:'row', alignItems:'center'}}>
+            <Text>Reps or volume?:   </Text>
+            <SelectDropdown
+            data={chartFilterOptions}
+            onSelect={(selectedItem, index) => {
+                handleFilterChange(index)
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => {
+                return selectedItem
+            }}
+            rowTextForSelection={(item, index) => {
+                return item
+            }}
+            defaultButtonText="Reps"
+            />
+        </View>
+        <View style={{flexDirection:'row', alignItems:'center'}}>
+            <Text>Select  time frame:</Text>
+            <SelectDropdown
+            data={chartDateFilterOptions}
+            onSelect={(selectedItem, index) => {
+                setChartTimeFilter(index)
+            }}
+            buttonTextAfterSelection={(selectedItem, index) => {
+                return selectedItem
+            }}
+            rowTextForSelection={(item, index) => {
+                return item
+            }}
+            defaultButtonText="Year"
+            />
+        </View>
         <LineChart data={{
         labels: chartLabelOptions[chartTimeFilter],
         datasets: [
