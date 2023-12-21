@@ -57,17 +57,17 @@ export default function WorkoutChart({workouts, navigation, loggedUser}){
         copyWeek = [[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]]
         for(let i = 0; i < workouts.length; i++){
             const month = workouts[i].date.split("-")[1]-1
-            const lastWeek = Last7Days()
+            const lastWeek = Last7Days().reverse()
             const indexOfDay = lastWeek.indexOf(workouts[i].date)
             if (loggedUser.uid === workouts[i].userId){
                 for(let j = 0; j < workouts[i].workout.length; j++){
                     for(let k = 0; k < workouts[i].workout[j].length; k++){
                         for(let y = 0; y < workouts[i].workout[j][k].sets.length; y++){
                             copyMonth[month][0] += Number(workouts[i].workout[j][k].sets[y].amount)
-                            copyMonth[month][1] += Number(workouts[i].workout[j][k].sets[y].resistance)
+                            copyMonth[month][1] += (Number(workouts[i].workout[j][k].sets[y].resistance) * Number(workouts[i].workout[j][k].sets[y].amount))
                             if(indexOfDay >= 0){
                                 copyWeek[indexOfDay][0] += Number(workouts[i].workout[j][k].sets[y].amount)
-                                copyWeek[indexOfDay][1] += Number(workouts[i].workout[j][k].sets[y].resistance)
+                                copyWeek[indexOfDay][1] += (Number(workouts[i].workout[j][k].sets[y].resistance) * Number(workouts[i].workout[j][k].sets[y].amount))
                             }
                         }
                     } 

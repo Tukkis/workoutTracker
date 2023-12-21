@@ -101,10 +101,12 @@ export default function AddWorkout({ navigation, saveWorkout, excercises, logged
         <ScrollView>
         <View style={{flexGrow: 1}}>
             { addNewState ? <View>
-                <Header centerComponent={{ text: 'Add an excercise to your workout'}} />
-                <Button icon={{name: 'done'}} onPress={() => setAddNewState(false)} title="Back to workout" /> 
+                <Header centerComponent={{ text: 'Add an excercise to your workout'}} /> 
                 <ExcerciseList data={excercises} onPressFunc={addExcerciseToCurrentWorkOut} currentWorkOut={currentWorkOut} loggedUser={loggedUser}/>
-                <Button icon={{name: 'add'}} onPress={() => navigation.navigate('Excercises')} title="Add or delete excercises" /> 
+                <View style={{flexDirection:'row', justifyContent:'space-around'}}>
+                    <Button icon={{name: 'add'}} onPress={() => navigation.navigate('Excercises')} title="Add or delete excercises" /> 
+                    <Button icon={{name: 'clear'}} onPress={() => setAddNewState(false)} title="Back to workout" color={'gray'}/> 
+                </View>
             </View> : 
             <View>
                 <Text style={{paddingTop:15}}></Text>

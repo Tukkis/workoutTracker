@@ -39,8 +39,10 @@ export default function Excercises({ navigation, loggedUser, excercises, saveExc
                     placeholder='excercise type'
                     onChangeText={excerciseType => setNewExcerciseType(excerciseType)}
                     value={newExcerciseType}/>
-                    <Button icon={{name: 'add'}} onPress={() => handleSave()} title="add" />
-                    <Button icon={{name: 'clear'}} onPress={() => setAddnew(false)} title="Back" color={'red'} />
+                    <View style={{flexDirection:'row', justifyContent:'space-around'}}>
+                        <Button icon={{name: 'add'}} onPress={() => handleSave()} title="add" />
+                        <Button icon={{name: 'clear'}} onPress={() => setAddnew(false)} title="Back" color={'gray'} />
+                    </View>
                 </View>
                 :
                 <ScrollView>
